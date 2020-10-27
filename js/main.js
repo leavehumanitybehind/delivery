@@ -24,7 +24,7 @@ function toggleModalAuth() {
 }
 
 function authorized() {
-  
+
 
   function logOut() {
     login = '';
@@ -37,7 +37,7 @@ function authorized() {
     checkAuth();
   }
 
-console.log(`Авторизован`);
+  console.log(`Авторизован`);
   userName.textContent = login;
   buttonAuth.style.display = 'none';
   userName.style.display = 'inline';
@@ -49,12 +49,11 @@ function notAuthorized() {
   console.log(`Не авторизован`);
 
   function logIn(evt) {
-    evt.preventDefault();
-    login = loginInput.value;
-    if (loginInput === '') {
-      logInForm.setCustomValidity('gfgh');
-    }
-    localStorage.setItem('delivery', login);
+      evt.preventDefault();
+        login = loginInput.value;
+      localStorage.setItem('delivery', login);
+      
+
     toggleModalAuth();
     closeAuth.removeEventListener('click', toggleModalAuth);
     buttonAuth.removeEventListener('click', toggleModalAuth);
