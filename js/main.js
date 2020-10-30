@@ -26,6 +26,7 @@ const cardRaiting = document.querySelector('.rating');
 const cardPrice = document.querySelector('.price');
 const cardCategory = document.querySelector('.category');
 const inputSearch = document.querySelector('.input-search');
+const cancelButton = document.querySelector('.clear-cart');
 
 
 let login = localStorage.getItem(`delivery`);
@@ -73,6 +74,7 @@ function authorized() {
     buttonAuth.style.display = '';
     userName.style.display = '';
     buttonOut.style.display = '';
+    cartButton.style.display = '';
     buttonOut.removeEventListener('click', logOut);
 
     checkAuth();
@@ -84,7 +86,8 @@ function authorized() {
 
   buttonAuth.style.display = 'none';
   userName.style.display = 'inline';
-  buttonOut.style.display = 'block';
+  buttonOut.style.display = 'flex';
+  cartButton.style.display = 'flex';
 
   buttonOut.addEventListener('click', logOut);
 };
@@ -154,7 +157,7 @@ function createCard({ image, kitchen, name, price, products, stars, time_of_deli
 };
 
 
-function createCardGood({ description, image, name, price }) {
+function createCardGood({ description, image, name, price, id}) {
   const card = document.createElement('div');
   card.className = 'card';
   card.insertAdjacentHTML('beforeend', `
@@ -169,7 +172,7 @@ function createCardGood({ description, image, name, price }) {
 								</div>
 							</div> 
 							<div class="card-buttons">
-								<button class="button button-primary button-add-cart">
+								<button class="button button-primary button-add-cart" id='${id}'>
 									<span class="button-card-text">В корзину</span>
 									<span class="button-cart-svg"></span>
 								</button>
@@ -214,11 +217,16 @@ function init() {
   });
 
   cartButton.addEventListener("click", toggleModal);
+  cancelButton.addEventListener("click", window.cart.cancel);
+  close.addEventListener("click", function () {
+    window.cart.render();
+    toggleModal();
+  });
 
-  close.addEventListener("click", toggleModal);
 
+  window.cart.click();
   cardsRest.addEventListener('click', openGoods);
-
+cardMenu.addEventListener('click', window.cart.add);
 
   logo.addEventListener('click', function () {
     promoContainer.classList.remove('hide');
